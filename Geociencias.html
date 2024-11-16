@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eficiencia Energética y Sistemas Geotermales</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Eficiencia Energética y Sistemas Geotermales</h1>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#teoria">Información Teórica</a>
+            <a href="#simulador">Simulador</a>
+            <a href="#infografias">Infografías</a>
+            <a href="#calculadora">Calculadora</a>
+            <a href="#juego">Juego</a>
+        </nav>
+    </header>
+
+    <section id="inicio">
+        <h2>Inicio</h2>
+        <p>Bienvenido a nuestra página dedicada a la eficiencia energética y los sistemas geotermales. Descubre cómo estos sistemas pueden ayudarte a ahorrar energía y proteger el medio ambiente.</p>
+    </section>
+
+    <section id="teoria">
+        <h2>Información Teórica</h2>
+        <p>La energía geotérmica es una fuente de energía renovable que se obtiene aprovechando el calor interno de la Tierra. Este tipo de energía es sostenible y tiene un impacto ambiental reducido en comparación con los combustibles fósiles.</p>
+        <p>Los sistemas geotermales pueden ser utilizados tanto para la generación de electricidad como para aplicaciones de calefacción y refrigeración en edificios. Con una correcta implementación, la energía geotérmica puede contribuir significativamente a la reducción del consumo energético y de las emisiones de gases de efecto invernadero.</p>
+    </section>
+
+    <section id="simulador">
+        <h2>Simulador de Eficiencia Geotermal</h2>
+        <div id="simulador-container">
+            <p>Interactúa con nuestro simulador y ajusta los parámetros para ver el impacto en el ahorro energético.</p>
+            <input type="range" id="profundidad" min="10" max="100" value="50" oninput="actualizarParametros()"> Profundidad (m)
+            <br>
+            <input type="range" id="temperatura" min="10" max="50" value="20" oninput="actualizarParametros()"> Temperatura Ambiente (°C)
+            <br>
+            <button onclick="calcularEficiencia()">Calcular Eficiencia</button>
+            <p id="resultado-simulador"></p>
+            <canvas id="graficoSimulador"></canvas>
+        </div>
+    </section>
+
+    <section id="infografias">
+        <h2>Infografías Interactivas</h2>
+        <div class="infografia">
+            <p>Conoce cómo la energía geotérmica funciona con ilustraciones interactivas.</p>
+            <!-- Espacio para gráficos animados -->
+        </div>
+    </section>
+
+    <section id="calculadora">
+        <h2>Calculadora de Ahorro Energético</h2>
+        <form id="calculadora-form">
+            <label for="consumo-actual">Consumo Actual (kWh):</label>
+            <input type="number" id="consumo-actual" required>
+            <button type="button" onclick="calcularAhorro()">Calcular Ahorro</button>
+        </form>
+        <p id="resultado-calculadora"></p>
+        <canvas id="graficoAhorro"></canvas>
+    </section>
+
+    <section id="juego">
+        <h2>El Desafío de la Planta Geotérmica</h2>
+        <p>Gestiona tu planta geotérmica para maximizar la eficiencia y superar los desafíos educativos.</p>
+        <div id="tablero-juego">
+            <!-- Espacio para el tablero interactivo -->
+        </div>
+        <p id="estado-juego">Puntuación: 0 | Eficiencia: 50%</p>
+    </section>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

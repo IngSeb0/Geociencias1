@@ -18,6 +18,7 @@
             <a href="#infografias">Infografías</a>
             <a href="#calculadora">Calculadora</a>
             <a href="#juego">Juego</a>
+            <a href="#noticias">Noticias</a>
         </nav>
     </header>
 
@@ -40,6 +41,40 @@
         </div>
     </section>
 
+    <section id="video">
+        <h2>¿Cómo Funciona la Energía Geotérmica?</h2>
+        <video controls>
+            <source src="video1.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video. Actualiza a un navegador moderno.
+        </video>
+    </section>
+
+    <section id="linea-tiempo">
+        <h2>Línea de Tiempo de la Geotermia</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>1904</h3>
+                <p>Se utilizó por primera vez la energía geotérmica para generar electricidad en Larderello, Italia.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>1960</h3>
+                <p>Se inauguró la primera planta geotérmica comercial en California, Estados Unidos.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>1973</h3>
+                <p>La crisis del petróleo impulsó el interés por la energía geotérmica como fuente renovable.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>2010</h3>
+                <p>Islandia alcanzó el 90% de sus necesidades de calefacción utilizando energía geotérmica.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>2024</h3>
+                <p>Se desarrollaron tecnologías avanzadas para perforación profunda, mejorando la eficiencia de las plantas geotérmicas.</p>
+            </div>
+        </div>
+    </section>
+    
     <section id="faq">
         <h2>Preguntas Frecuentes</h2>
         <details>
@@ -58,6 +93,22 @@
             <summary>¿Los sistemas geotermales son costosos de instalar?</summary>
             <p>El costo inicial puede ser alto, pero se compensa con el ahorro en costos de energía a largo plazo y su baja necesidad de mantenimiento.</p>
         </details>
+            <details>
+                <summary>¿Qué profundidad se necesita para un sistema geotérmico eficiente?</summary>
+                <p>La profundidad depende del tipo de sistema. Para aplicaciones residenciales, las perforaciones suelen tener entre 50 y 150 metros de profundidad.</p>
+            </details>
+            <details>
+                <summary>¿Qué impacto ambiental tienen los sistemas geotermales?</summary>
+                <p>El impacto ambiental es mínimo. Los sistemas geotermales emiten pocas o ninguna emisión de gases de efecto invernadero y tienen una huella de carbono mucho menor que los combustibles fósiles.</p>
+            </details>
+            <details>
+                <summary>¿Qué mantenimiento requieren los sistemas geotermales?</summary>
+                <p>Los sistemas geotermales requieren poco mantenimiento. Una inspección anual y la limpieza ocasional de componentes clave son generalmente suficientes.</p>
+            </details>
+            <details>
+                <summary>¿Los sistemas geotermales funcionan en climas fríos?</summary>
+                <p>Sí, los sistemas geotermales son muy eficientes incluso en climas fríos, ya que aprovechan el calor constante del subsuelo.</p>
+            </details>
     </section>
 
     <section id="simulador">
@@ -101,7 +152,29 @@
         </div>
         <p id="estado-juego">Puntuación: 0 | Eficiencia: 50%</p>
     </section>
+
+    <section id="noticias">
+        <h2>Noticias y Avances</h2>
+        <article>
+            <img src="geo5.jpeg" alt="Perforación profunda" class="miniatura">
+            <h3><a href=" https://www.huffingtonpost.es/planeta/perforan-9-km-profundidad-tierra-dar-energia-abastecer-mundo.html" target="_blank">Perforación a Grandes Profundidades para Energía Geotérmica</a></h3>
+            <p>Un proyecto innovador en Utah, EE.UU., explora la perforación a 9 km de profundidad para extraer roca caliente, lo que podría generar energía suficiente para millones de hogares.</p>
+        </article>
+        <article>
+            <img src="geo6.jpg" alt="Perforación profunda" class="miniatura">
+            <h3><a href="https://es.euronews.com/green/2024/06/27/la-energia-geotermica-recibe-un-importante-impulso-de-una-planta-estadounidense" target="_blank">Estados Unidos Lanza la Mayor Planta de Energía Geotérmica</a></h3>
+            <p>Un proyecto californiano promete revolucionar la generación de energía geotérmica con una capacidad de 400 megavatios, suficiente para abastecer a 400,000 hogares.</p>
+        </article>
+        <article>
+            <img src="geo7.jpg" alt="Perforación profunda" class="miniatura">
+            <h3><a href="https://elpais.com/extra/energia/2023-10-29/geotermia-una-gran-fuente-bajo-tierra.html" target="_blank">Geotermia: La Energía que Cambiará el Futuro</a></h3>
+            <p>Los sistemas geotérmicos ofrecen una alternativa limpia y sostenible frente a los combustibles fósiles, con aplicaciones en electricidad y calefacción.</p>
+        </article>
+    </section>
+
+    <div id="progreso"></div>
     
+    <button id="toggle-mode">Modo Oscuro</button>
 
     <script src="script.js"></script>
 </body>

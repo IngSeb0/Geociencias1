@@ -114,6 +114,15 @@ function cargarInfografia() {
     });
 }
 
+window.onscroll = function() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercentage = (scrollTop / scrollHeight) * 100;
+    document.getElementById("progreso").style.width = scrollPercentage + "%";
+};
+
+
+
 // Llamar a la función de carga de infografías al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
     cargarInfografia();
@@ -135,6 +144,31 @@ document.addEventListener('DOMContentLoaded', function() {
         celda.addEventListener('click', () => explorarCelda(celda, i));
         tablero.appendChild(celda);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+    
+        // Escucha el evento scroll para escalar elementos visibles
+        window.addEventListener('scroll', function() {
+            timelineItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                    // Solo escala el elemento cuando está visible
+                    item.classList.add('visible');
+                } else {
+                    item.classList.remove('visible');
+                }
+            });
+        });
+    
+    
+        // Agregar interacción al hacer clic en cada evento
+        timelineItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                alert(`Evento seleccionado: ${item.querySelector('h3').innerText}`);
+            });
+        });
+    });
 
     function explorarCelda(celda, index) {
         if (!celda.classList.contains('activa')) {
@@ -229,6 +263,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    document.getElementById('toggle-mode').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+    });
+    
     function actualizarEstadoJuego() {
         document.getElementById('estado-juego').innerText = `Puntuación: ${puntuacion} | Eficiencia: ${eficiencia}% | Presupuesto: $${presupuesto}`;
 

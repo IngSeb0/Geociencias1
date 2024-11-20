@@ -126,12 +126,47 @@
     </section>
 
     <section id="infografias">
-        <h2>Infografías Interactivas</h2>
-        <div class="infografia">
-            <p>Conoce cómo la energía geotérmica funciona con ilustraciones interactivas.</p>
-            <!-- Espacio para gráficos animados -->
+        <h2>Infografías Interactivas sobre Energía Geotérmica</h2>
+        <p>Explora los aspectos clave de la energía geotérmica a través de nuestras infografías interactivas. Haz clic en los elementos para aprender más.</p>
+        
+        <!-- Infografía de Eficiencia de la Energía Geotérmica -->
+        <div class="infografia" id="infografia-eficiencia">
+            <h3>Eficiencia de la Energía Geotérmica</h3>
+            <canvas id="graficoEficienciaGeotermica"></canvas>
+            <p>Este gráfico muestra cómo la energía geotérmica se compara en términos de eficiencia con otras energías renovables.</p>
+        </div>
+    
+        <!-- Infografía del Proceso Geotérmico -->
+        <div class="infografia" id="infografia-proceso">
+            <h3>El Proceso de Extracción Geotérmica</h3>
+            <p>Haz clic en los íconos para ver los detalles de cada etapa del proceso:</p>
+            <div id="proceso-detalles">
+                <button onclick="mostrarDetalleProceso('perforacion')">Perforación</button>
+                <button onclick="mostrarDetalleProceso('extraccion')">Extracción de Calor</button>
+                <button onclick="mostrarDetalleProceso('conversion')">Conversión de Energía</button>
+            </div>
+            <div id="detalle-perforacion" class="detalle" style="display: none;">
+                <h4>Perforación</h4>
+                <p>La perforación permite acceder a las capas profundas de la Tierra donde se encuentra el calor geotérmico.</p>
+            </div>
+            <div id="detalle-extraccion" class="detalle" style="display: none;">
+                <h4>Extracción de Calor</h4>
+                <p>El calor es extraído y transportado a través de fluidos para generar energía en la superficie.</p>
+            </div>
+            <div id="detalle-conversion" class="detalle" style="display: none;">
+                <h4>Conversión de Energía</h4>
+                <p>El calor extraído se convierte en electricidad mediante una planta geotérmica.</p>
+            </div>
+        </div>
+    
+        <!-- Infografía Comparativa -->
+        <div class="infografia" id="infografia-comparativa">
+            <h3>Comparativa de Energías Renovables</h3>
+            <canvas id="graficoComparativoGeotermico"></canvas>
+            <p>Pasa el cursor sobre los segmentos para ver los detalles de la eficiencia de la energía geotérmica en comparación con la solar, eólica e hidroeléctrica.</p>
         </div>
     </section>
+    
 
     <section id="calculadora">
         <h2>Calculadora de Ahorro Energético</h2>
@@ -146,7 +181,7 @@
 
     <section id="juego">
         <h2>El Desafío de la Planta Geotérmica</h2>
-        <p>Gestiona tu planta geotérmica para maximizar la eficiencia y superar los desafíos educativos.</p>
+        <p>Gestiona tu planta geotérmica para maximizar la eficiencia y superar los desafíos educativos. Haz clic en las celdas para explorar y mejorar tu planta, pero ten cuidado con los eventos inesperados.</p>
         <div id="tablero-juego">
             <!-- Espacio para el tablero interactivo -->
         </div>

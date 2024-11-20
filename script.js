@@ -15,11 +15,9 @@ function calcularEficiencia() {
         // Crear o actualizar gráfico de eficiencia
         let ctx = document.getElementById('graficoSimulador').getContext('2d');
         if (graficoSimulador) {
-            // Actualizar el gráfico existente
             graficoSimulador.data.datasets[0].data = [parseFloat(eficiencia)];
             graficoSimulador.update();
         } else {
-            // Crear un nuevo gráfico si no existe
             graficoSimulador = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -57,11 +55,9 @@ function calcularAhorro() {
         // Crear o actualizar gráfico de ahorro
         let ctx = document.getElementById('graficoAhorro').getContext('2d');
         if (graficoAhorro) {
-            // Actualizar el gráfico existente
             graficoAhorro.data.datasets[0].data = [consumoActual, ahorro];
             graficoAhorro.update();
         } else {
-            // Crear un nuevo gráfico si no existe
             graficoAhorro = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -87,24 +83,110 @@ function calcularAhorro() {
     }
 }
 
-// Función para mostrar gráficos interactivos en la sección de Infografías
-function cargarInfografia() {
-    let ctx = document.createElement('canvas');
-    ctx.id = 'graficoInfografico';
-    document.querySelector('.infografia').appendChild(ctx);
+// Función para mostrar gráficos comparativos en la sección de Infografías
+function cargarInfografiaComparativa() {
+    let ctx = document.getElementById('graficoComparativo').getContext('2d');
 
     new Chart(ctx, {
-        type: 'pie',
+        type: 'bar',
         data: {
             labels: ['Geotérmica', 'Solar', 'Eólica', 'Hidroeléctrica'],
             datasets: [{
-                data: [30, 25, 20, 25], // Datos representativos de eficiencia
+                label: 'Eficiencia (%)',
+                data: [90, 75, 80, 85], // Datos representativos
+                backgroundColor: ['#4CAF50', '#FFC107', '#36A2EB', '#FF6384']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Porcentaje de Eficiencia'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+}
+
+
+
+// Función para mostrar detalles de los procesos
+function mostrarDetalleProceso(etapa) {
+    const detalles = document.querySelectorAll('.detalle');
+    detalles.forEach(detalle => detalle.style.display = 'none');
+
+    document.getElementById(`detalle-${etapa}`).style.display = 'block';
+}
+
+// Inicializar gráficos de infografías
+document.addEventListener('DOMContentLoaded', function() {
+    // Gráfico de Eficiencia de la Energía Geotérmica
+    let ctxEficiencia = document.getElementById('graficoEficienciaGeotermica').getContext('2d');
+    new Chart(ctxEficiencia, {
+        type: 'bar',
+        data: {
+            labels: ['Geotérmica', 'Solar', 'Eólica', 'Hidroeléctrica'],
+            datasets: [{
+                label: 'Eficiencia (%)',
+                data: [90, 75, 80, 85],
+                backgroundColor: ['#4CAF50', '#FFC107', '#36A2EB', '#FF6384']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Porcentaje de Eficiencia'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // Gráfico Comparativo de Energías
+    let ctxComparativo = document.getElementById('graficoComparativoGeotermico').getContext('2d');
+    new Chart(ctxComparativo, {
+        type: 'doughnut',
+        data: {
+            labels: ['Geotérmica', 'Solar', 'Eólica', 'Hidroeléctrica'],
+            datasets: [{
+                data: [30, 25, 20, 25],
                 backgroundColor: ['#4CAF50', '#FFC107', '#36A2EB', '#FF6384']
             }]
         },
         options: {
             responsive: true,
             plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let fuente = context.label;
+                            let porcentaje = context.raw;
+                            return `${fuente}: ${porcentaje}% de eficiencia.`;
+                        }
+                    }
+                },
                 legend: {
                     display: true,
                     position: 'bottom'
@@ -119,8 +201,7 @@ window.onscroll = function() {
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollPercentage = (scrollTop / scrollHeight) * 100;
     document.getElementById("progreso").style.width = scrollPercentage + "%";
-};
-
+});
 
 
 // Llamar a la función de carga de infografías al cargar la página
@@ -133,9 +214,11 @@ document.addEventListener('DOMContentLoaded', function() {
 let puntuacion = 0;
 let eficiencia = 50;
 let presupuesto = 100;
+const filas = 5; // Número de filas en el tablero
+const columnas = 5; // Número de columnas en el tablero
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Crear el tablero de juego
+// Función para generar el tablero de juego
+function generarTablero() {
     const tablero = document.getElementById('tablero-juego');
     for (let i = 0; i < 25; i++) {
         const celda = document.createElement('div');
@@ -291,5 +374,9 @@ document.addEventListener('DOMContentLoaded', function() {
         actualizarEstadoJuego();
     }
 
+// Inicializar el juego al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    generarTablero();
     actualizarEstadoJuego();
 });
+}

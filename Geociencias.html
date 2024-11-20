@@ -135,6 +135,407 @@
             <canvas id="graficoEficienciaGeotermica"></canvas>
             <p>Este gráfico muestra cómo la energía geotérmica se compara en términos de eficiencia con otras energías renovables.</p>
         </div>
+        <section id="mapa-geotermico">
+            <h2>Mapa Geotérmico Interactivo</h2>
+            <p>Explora los países y las capitales donde más se utiliza la energía geotérmica en América Latina.</p>
+            <div id="map" style="width: 100%; height: 600px;"></div>
+        </section>
+        
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        
+        <script>
+            // Inicializar el mapa centrado en América Latina
+            const map = L.map('map').setView([10, -70], 4);
+        
+            // Añadir una capa de mapa base
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        
+            // Datos de países y capitales con geotermia
+            const geotermiaData = [
+            {
+                nombre: 'Ahuachapán geothermal power plant',
+                capacidad: '30 MW',
+                tecnologia: 'flash steam - single',
+                estado: 'operating',
+                año_inicio: 1975,
+                propietario: 'LaGeo [100%]',
+                operador: 'LaGeo',
+                pais: 'El Salvador',
+                coordenadas: [13.9213, -89.845]
+            },
+            {
+                nombre: 'Aidlin geothermal power plant',
+                capacidad: '12 MW',
+                tecnologia: 'unknown type',
+                estado: 'operating',
+                año_inicio: 1989,
+                propietario: 'Geysers Power Co LLC [100%]',
+                operador: '',
+                pais: 'United States',
+                coordenadas: [38.7785, -122.7507]
+            },
+            {
+                nombre: 'Cerro Prieto 1 geothermal power plant',
+                capacidad: '38 MW',
+                tecnologia: 'flash steam - single',
+                estado: 'retired',
+                año_inicio: 1973,
+                propietario: 'Comision Federal De Electricidad [100%]',
+                operador: 'Comision Federal De Electricidad',
+                pais: 'Mexico',
+                coordenadas: [32.4986, -115.2787]
+            },
+            {
+                nombre: 'Bac-Man geothermal power plant',
+                capacidad: '55 MW',
+                tecnologia: 'flash steam - single',
+                estado: 'operating',
+                año_inicio: 1993,
+                propietario: 'Energy Development CORP (EDC) [100%]',
+                operador: 'Energy Development CORP (EDC)',
+                pais: 'Philippines',
+                coordenadas: [13.188, 123.683]
+            },
+            {
+                nombre: 'Blundell 1 geothermal plant',
+                capacidad: '31 MW',
+                tecnologia: 'flash steam - unknown',
+                estado: 'operating',
+                año_inicio: 1984,
+                propietario: 'PacifiCorp [100%]',
+                operador: 'PacifiCorp',
+                pais: 'United States',
+                coordenadas: [38.542, -112.629]
+            },
+            {
+                nombre: 'Cerro Pabellón geothermal power plant',
+                capacidad: '24 MW',
+                tecnologia: 'binary cycle',
+                estado: 'operating',
+                año_inicio: 2017,
+                propietario: 'Empresa Nacional del Petróleo [50%]; Enel Chile [50%]',
+                operador: 'Geotérmica Del Norte (GDN)',
+                pais: 'Chile',
+                coordenadas: [-22.331, -68.827]
+            },
+            {
+                nombre: 'Bouillante geothermal power plant',
+                capacidad: '10 MW',
+                tecnologia: 'flash steam - double',
+                estado: 'operating',
+                año_inicio: 2003,
+                propietario: '',
+                operador: '',
+                pais: 'Guadeloupe',
+                coordenadas: [16.095, -61.765]
+            },
+            {
+                nombre: 'Cape Station geothermal power plant',
+                capacidad: '300 MW',
+                tecnologia: 'EGS',
+                estado: 'pre-construction',
+                año_inicio: 2028,
+                propietario: 'Fervo Energy',
+                operador: 'Fervo Energy',
+                pais: 'United States',
+                coordenadas: [40.7608, -111.891]
+            },
+            {
+                nombre: 'Coso BLM geothermal plant',
+                capacidad: '90 MW',
+                tecnologia: 'flash steam - double',
+                estado: 'operating',
+                año_inicio: 1987,
+                propietario: 'Atlantica Sustainable Infrastructure [100%]',
+                operador: 'Coso Operating Co LLC',
+                pais: 'United States',
+                coordenadas: [36.0015, -117.8173]
+            },
+
+    {
+        nombre: 'Biliran geothermal power plant',
+        capacidad: '50 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: 2025,
+        propietario: 'Biliran Geothermal INC [100%]',
+        operador: '',
+        pais: 'Philippines',
+        coordenadas: [11.6113, 124.429]
+    },
+    {
+        nombre: 'Baringo-Silali geothermal power plant',
+        capacidad: '100 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: null,
+        propietario: 'Geothermal Development Company (GDC) [100%]',
+        operador: 'Geothermal Development Company (GDC)',
+        pais: 'Kenya',
+        coordenadas: [0.7152, 35.6025]
+    },
+    {
+        nombre: 'Blue Mountain geothermal plant',
+        capacidad: '50 MW',
+        tecnologia: 'binary cycle',
+        estado: 'operating',
+        año_inicio: 2010,
+        propietario: 'AltaRock Energy [100%]',
+        operador: '',
+        pais: 'United States',
+        coordenadas: [39.3364, -118.2245]
+    },
+    {
+        nombre: 'Alaşehir 1 geothermal power plant',
+        capacidad: '45 MW',
+        tecnologia: 'flash steam - double',
+        estado: 'operating',
+        año_inicio: 2015,
+        propietario: 'Zorlu Enerji [100%]',
+        operador: 'Zorlu Enerji',
+        pais: 'Türkiye',
+        coordenadas: [38.3432, 28.8738]
+    },
+    {
+        nombre: 'Casa Diablo 4 geothermal power plant',
+        capacidad: '30 MW',
+        tecnologia: 'binary cycle',
+        estado: 'operating',
+        año_inicio: 2022,
+        propietario: 'Ormat Technology INC [100%]',
+        operador: 'Ormat Technology INC',
+        pais: 'United States',
+        coordenadas: [37.6434, -118.9721]
+    },
+    {
+        nombre: 'Calistoga geothermal plant',
+        capacidad: '88 MW',
+        tecnologia: 'dry steam',
+        estado: 'operating',
+        año_inicio: 1984,
+        propietario: 'Geysers Power Co LLC [100%]',
+        operador: 'Geysers Power Co LLC',
+        pais: 'United States',
+        coordenadas: [38.5816, -122.5785]
+    },
+    {
+        nombre: 'Cerro Prieto 2 geothermal power plant',
+        capacidad: '110 MW',
+        tecnologia: 'flash steam - double',
+        estado: 'operating',
+        año_inicio: 1986,
+        propietario: 'Comision Federal De Electricidad [100%]',
+        operador: 'Comision Federal De Electricidad',
+        pais: 'Mexico',
+        coordenadas: [32.4873, -115.2855]
+    },
+    {
+        nombre: 'Baturaden geothermal power plant',
+        capacidad: '50 MW',
+        tecnologia: 'unknown type',
+        estado: 'construction',
+        año_inicio: null,
+        propietario: 'PT Trinergy Mandiri International [11%]; PT Nirwana Suci Abadi [89%]',
+        operador: '',
+        pais: 'Indonesia',
+        coordenadas: [-7.3023, 109.2526]
+    },
+    {
+        nombre: 'Cove Fort geothermal power plant',
+        capacidad: '12 MW',
+        tecnologia: 'binary cycle',
+        estado: 'operating',
+        año_inicio: 2013,
+        propietario: 'Ormat Technology INC',
+        operador: '',
+        pais: 'United States',
+        coordenadas: [38.6158, -112.5824]
+    },
+    {
+        nombre: 'Blawan Ijen geothermal project',
+        capacidad: '34 MW',
+        tecnologia: 'unknown type',
+        estado: 'construction',
+        año_inicio: 2025,
+        propietario: 'PT Medco Power Indonesia [51%]; Ormat Technology INC [49%]',
+        operador: 'PT Medco Power Indonesia',
+        pais: 'Indonesia',
+        coordenadas: [-8.0322, 114.1692]
+    },
+    {
+        nombre: 'Corbetti geothermal power plant',
+        capacidad: '50 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: 2027,
+        propietario: 'Berkeley Energy [33%]; Reykjavik Geothermal [33%]; InfraCo Africa [33%]',
+        operador: 'Corbetti Geothermal',
+        pais: 'Ethiopia',
+        coordenadas: [7.3, 38.5]
+    },
+    {
+        nombre: 'Chinameca geothermal power plant',
+        capacidad: '20 MW',
+        tecnologia: 'unknown type',
+        estado: 'construction',
+        año_inicio: 2025,
+        propietario: 'LaGeo [100%]',
+        operador: 'LaGeo',
+        pais: 'El Salvador',
+        coordenadas: [13.5072, -88.3883]
+    },
+    {
+        nombre: 'Chachimbiro geothermal power plant',
+        capacidad: '50 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: 2026,
+        propietario: 'Corporación Eléctrica del Ecuador (CELEC EP) [100%]',
+        operador: 'Corporación Eléctrica del Ecuador (CELEC EP)',
+        pais: 'Ecuador',
+        coordenadas: [0.3384, -78.2049]
+    },
+    {
+        nombre: 'Buranga geothermal power plant',
+        capacidad: '100 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: 2025,
+        propietario: 'Gids Consult Ltd [100%]',
+        operador: 'Gids Consult LTD',
+        pais: 'Uganda',
+        coordenadas: [0.7, 30.1]
+    },
+    {
+        nombre: 'Daklan geothermal power plant',
+        capacidad: '51 MW',
+        tecnologia: 'unknown type',
+        estado: 'announced',
+        año_inicio: null,
+        propietario: 'Philippine Geothermal Production Company Inc',
+        operador: '',
+        pais: 'Philippines',
+        coordenadas: [16.2, 120.8]
+    },
+    {
+        nombre: 'Cerro Prieto 3 geothermal power plant',
+        capacidad: '110 MW',
+        tecnologia: 'flash steam - double',
+        estado: 'operating',
+        año_inicio: 1986,
+        propietario: 'Comision Federal De Electricidad',
+        operador: 'Comision Federal De Electricidad',
+        pais: 'Mexico',
+        coordenadas: [32.4873, -115.2855]
+    },
+    {
+        nombre: 'Borinquen geothermal power project',
+        capacidad: '55 MW',
+        tecnologia: 'unknown type',
+        estado: 'construction',
+        año_inicio: 2027,
+        propietario: 'Costa Rican Electricity Institute (ICE) [100%]',
+        operador: 'Costa Rican Electricity Institute (ICE)',
+        pais: 'Costa Rica',
+        coordenadas: [10.5, -85.5]
+    },
+    {
+        nombre: 'Cabanaconde geothermal power plant',
+        capacidad: '100 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: 2027,
+        propietario: 'Energy Development CORP (EDC) [100%]',
+        operador: 'Energy Development CORP (EDC)',
+        pais: 'Peru',
+        coordenadas: [-15.6229, -71.9824]
+    },
+    {
+        nombre: 'Bottle Rock Power geothermal plant',
+        capacidad: '55 MW',
+        tecnologia: 'flash steam - single',
+        estado: 'operating',
+        año_inicio: 1985,
+        propietario: 'Baseload Clean Energy Partners [100%]',
+        operador: 'Bottle Rock Power LLC',
+        pais: 'United States',
+        coordenadas: [38.8333, -122.75]
+    },
+    {
+        nombre: 'CE Turbo geothermal power plant',
+        capacidad: '12 MW',
+        tecnologia: 'unknown type',
+        estado: 'operating',
+        año_inicio: 2000,
+        propietario: 'CalEnergy Operating CORP [100%]',
+        operador: '',
+        pais: 'United States',
+        coordenadas: [33.1231, -115.4939]
+    },
+    {
+        nombre: 'Bitra geothermal power plant',
+        capacidad: '135 MW',
+        tecnologia: 'unknown type',
+        estado: 'cancelled',
+        año_inicio: null,
+        propietario: 'Orkuveita Reykjavikur [100%]',
+        operador: 'Orkuveita Reykjavikur',
+        pais: 'Iceland',
+        coordenadas: [64.9631, -19.0208]
+    },
+    {
+        nombre: 'Black Rock geothermal power plant',
+        capacidad: '77 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: null,
+        propietario: 'Black Rock Geothermal LLC',
+        operador: '',
+        pais: 'United States',
+        coordenadas: [38.6582, -111.8967]
+    },
+    {
+        nombre: 'Cove Fort geothermal power plant',
+        capacidad: '20 MW',
+        tecnologia: 'unknown type',
+        estado: 'announced',
+        año_inicio: 2028,
+        propietario: 'Ormat Technology INC',
+        operador: '',
+        pais: 'United States',
+        coordenadas: [38.6158, -112.5824]
+    },
+    {
+        nombre: 'Blawan Ijen geothermal project',
+        capacidad: '55 MW',
+        tecnologia: 'unknown type',
+        estado: 'pre-construction',
+        año_inicio: null,
+        propietario: 'PT Medco Power Indonesia [51%]; Ormat Technology INC [49%]',
+        operador: 'PT Medco Power Indonesia',
+        pais: 'Indonesia',
+        coordenadas: [-8.0322, 114.1692]
+    }
+            
+        ];
+        
+            // Añadir marcadores al mapa con información
+            geotermiaData.forEach(data => {
+                const marker = L.marker(data.coordenadas).addTo(map);
+                const popupContent = `
+                    <div style="text-align: center;">
+                        <strong>${data.pais}</strong><br>
+                        <em>${data.capital}</em><br>
+                        <p>Capacidad instalada: ${data.capacidad}<br>
+                        Proyectos activos: ${data.proyectos}</p>
+                    </div>
+                `;
+                marker.bindPopup(popupContent);
+            });
+        </script>
     
         <!-- Infografía del Proceso Geotérmico -->
         <div class="infografia" id="infografia-proceso">
@@ -215,6 +616,8 @@
             <p>Los sistemas geotérmicos ofrecen una alternativa limpia y sostenible frente a los combustibles fósiles, con aplicaciones en electricidad y calefacción.</p>
         </article>
     </section>
+
+    
 
     <div id="progreso"></div>
     

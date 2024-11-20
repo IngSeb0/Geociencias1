@@ -221,163 +221,128 @@ const columnas = 5; // Número de columnas en el tablero
 // Función para generar el tablero de juego
 function generarTablero() {
     const tablero = document.getElementById('tablero-juego');
-    for (let i = 0; i < 25; i++) {
-        const celda = document.createElement('div');
-        celda.classList.add('celda');
-        celda.innerText = '?';
-        celda.addEventListener('click', () => explorarCelda(celda, i));
-        tablero.appendChild(celda);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const timelineItems = document.querySelectorAll('.timeline-item');
-    
-        // Escucha el evento scroll para escalar elementos visibles
-        window.addEventListener('scroll', function() {
-            timelineItems.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                    // Solo escala el elemento cuando está visible
-                    item.classList.add('visible');
-                } else {
-                    item.classList.remove('visible');
-                }
-            });
-        });
-    
-    
-        // Agregar interacción al hacer clic en cada evento
-        timelineItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                alert(`Evento seleccionado: ${item.querySelector('h3').innerText}`);
-            });
-        });
-    });
-
-    function explorarCelda(celda, index) {
-        if (!celda.classList.contains('activa')) {
-            if (presupuesto >= 10) {
-                celda.classList.add('activa');
-                presupuesto -= 10;
-                const resultado = Math.random() < 0.5 ? 'bueno' : 'malo';
-
-                if (resultado === 'bueno') {
-                    puntuacion += 15;
-                    eficiencia += 5;
-                    celda.innerText = '💧';
-                    celda.style.backgroundColor = '#4CAF50';
-                    mostrarDesafioEducativo();
-                } else {
-                    puntuacion -= 5;
-                    eficiencia -= 5;
-                    celda.innerText = '🔥';
-                    celda.style.backgroundColor = '#FF5733';
-                    mostrarEventoAleatorio();
-                }
-
-                actualizarEstadoJuego();
-            } else {
-                alert('No tienes suficiente presupuesto para perforar.');
-            }
-        }
-    }
-
-    function mostrarDesafioEducativo() {
-        const preguntas = [
-            {
-                pregunta: "¿Cuál es la principal fuente de calor en un sistema geotérmico?",
-                opciones: ["El Sol", "El núcleo de la Tierra", "La atmósfera"],
-                respuesta: 1
-            },
-            {
-                pregunta: "¿Cuál es una ventaja de la energía geotérmica?",
-                opciones: ["Es costosa", "Es inagotable", "Emite mucho CO2"],
-                respuesta: 1
-            },
-            {
-                pregunta: "¿Dónde se encuentran los recursos geotérmicos más accesibles?",
-                opciones: ["En zonas volcánicas", "En desiertos", "En la tundra"],
-                respuesta: 0
-            },
-            {
-                pregunta: "¿Qué tipo de sistema de calefacción es más eficiente con energía geotérmica?",
-                opciones: ["Radiadores tradicionales", "Suelo radiante", "Calefacción por aire caliente"],
-                respuesta: 1
-            },
-            {
-                pregunta: "¿Qué impacto tienen los sistemas geotérmicos en la huella de carbono?",
-                opciones: ["Aumentan la huella de carbono", "No tienen ningún impacto", "Reducen la huella de carbono"],
-                respuesta: 2
-            }
-        ];
-        const desafio = preguntas[Math.floor(Math.random() * preguntas.length)];
-        const respuesta = prompt(`${desafio.pregunta}\nOpciones:\n${desafio.opciones.map((op, i) => `${i + 1}. ${op}`).join('\n')}`);
-
-        if (parseInt(respuesta) - 1 === desafio.respuesta) {
-            alert("¡Respuesta correcta! Ganas 10 puntos de eficiencia y 20 de presupuesto.");
-            eficiencia += 10;
-            presupuesto += 20;
-        } else {
-            alert("Respuesta incorrecta. Pierdes 5 puntos de eficiencia.");
-            eficiencia -= 5;
-        }
-    }
-
-    function mostrarEventoAleatorio() {
-        const eventos = [
-            "Mantenimiento inesperado: pierdes 10 de presupuesto.",
-            "Descubres una nueva fuente de calor: ganas 10 de eficiencia.",
-            "Problemas técnicos: pierdes 5 de eficiencia.",
-            "Condiciones climáticas adversas: eficiencia reducida en 10%.",
-            "Reducción de impuestos: presupuesto aumentado en 20."
-        ];
-        const evento = eventos[Math.floor(Math.random() * eventos.length)];
-        alert(evento);
-
-        if (evento.includes("pierdes 10 de presupuesto")) {
-            presupuesto -= 10;
-        } else if (evento.includes("ganas 10 de eficiencia")) {
-            eficiencia += 10;
-        } else if (evento.includes("pierdes 5 de eficiencia")) {
-            eficiencia -= 5;
-        } else if (evento.includes("eficiencia reducida en 10%")) {
-            eficiencia -= 10;
-        } else if (evento.includes("presupuesto aumentado en 20")) {
-            presupuesto += 20;
-        }
-    }
-
-    document.getElementById('toggle-mode').addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-    });
-    
-    function actualizarEstadoJuego() {
-        document.getElementById('estado-juego').innerText = `Puntuación: ${puntuacion} | Eficiencia: ${eficiencia}% | Presupuesto: $${presupuesto}`;
-
-        if (eficiencia <= 0) {
-            alert('¡La planta se ha vuelto ineficiente y ha fallado! Intenta de nuevo.');
-            reiniciarJuego();
-        } else if (presupuesto <= 0) {
-            alert('¡Te has quedado sin presupuesto! Intenta de nuevo.');
-            reiniciarJuego();
-        }
-    }
-
-    function reiniciarJuego() {
-        puntuacion = 0;
-        eficiencia = 50;
-        presupuesto = 100;
-        document.querySelectorAll('.celda').forEach(celda => {
-            celda.classList.remove('activa');
+    tablero.innerHTML = ''; // Limpiar tablero existente
+    for (let i = 0; i < filas; i++) {
+        const fila = document.createElement('div');
+        fila.classList.add('fila');
+        for (let j = 0; j < columnas; j++) {
+            const celda = document.createElement('div');
+            celda.classList.add('celda');
             celda.innerText = '?';
-            celda.style.backgroundColor = '#f1f1f1';
-        });
-        actualizarEstadoJuego();
+            celda.onclick = () => explorarCelda(celda, i * columnas + j);
+            fila.appendChild(celda);
+        }
+        tablero.appendChild(fila);
     }
+}
+
+// Función del juego interactivo
+function explorarCelda(celda, index) {
+    if (!celda.classList.contains('activa')) {
+        if (presupuesto >= 10) {
+            celda.classList.add('activa');
+            presupuesto -= 10;
+            const resultado = Math.random() < 0.5 ? 'bueno' : 'malo';
+
+            if (resultado === 'bueno') {
+                puntuacion += 15;
+                eficiencia += 5;
+                celda.innerText = '💧';
+                celda.style.backgroundColor = '#4CAF50';
+                mostrarDesafioEducativo();
+            } else {
+                puntuacion -= 5;
+                eficiencia -= 5;
+                celda.innerText = '🔥';
+                celda.style.backgroundColor = '#FF5733';
+                mostrarEventoAleatorio();
+            }
+
+            actualizarEstadoJuego();
+        } else {
+            alert('No tienes suficiente presupuesto para perforar.');
+        }
+    }
+}
+
+// Funciones adicionales para el juego (desafíos y eventos aleatorios)
+function mostrarDesafioEducativo() {
+    const preguntas = [
+        {
+            pregunta: "¿Cuál es la principal fuente de calor en un sistema geotérmico?",
+            opciones: ["El Sol", "El núcleo de la Tierra", "La atmósfera"],
+            respuesta: 1
+        },
+        {
+            pregunta: "¿Cuál es una ventaja de la energía geotérmica?",
+            opciones: ["Es costosa", "Es inagotable", "Emite mucho CO2"],
+            respuesta: 1
+        },
+        {
+            pregunta: "¿Dónde se encuentran los recursos geotérmicos más accesibles?",
+            opciones: ["En zonas volcánicas", "En desiertos", "En la tundra"],
+            respuesta: 0
+        }
+    ];
+    const desafio = preguntas[Math.floor(Math.random() * preguntas.length)];
+    const respuesta = prompt(`${desafio.pregunta}\nOpciones:\n${desafio.opciones.map((op, i) => `${i + 1}. ${op}`).join('\n')}`);
+
+    if (parseInt(respuesta) - 1 === desafio.respuesta) {
+        alert("¡Respuesta correcta! Ganas 10 puntos de eficiencia y 20 de presupuesto.");
+        eficiencia += 10;
+        presupuesto += 20;
+    } else {
+        alert("Respuesta incorrecta. Pierdes 5 puntos de eficiencia.");
+        eficiencia -= 5;
+    }
+}
+
+function mostrarEventoAleatorio() {
+    const eventos = [
+        "Mantenimiento inesperado: pierdes 10 de presupuesto.",
+        "Descubres una nueva fuente de calor: ganas 10 de eficiencia.",
+        "Problemas técnicos: pierdes 5 de eficiencia.",
+        "Condiciones climáticas adversas: eficiencia reducida en 10%.",
+        "Reducción de impuestos: presupuesto aumentado en 20."
+    ];
+    const evento = eventos[Math.floor(Math.random() * eventos.length)];
+    alert(evento);
+
+    if (evento.includes("pierdes 10 de presupuesto")) {
+        presupuesto -= 10;
+    } else if (evento.includes("ganas 10 de eficiencia")) {
+        eficiencia += 10;
+    } else if (evento.includes("pierdes 5 de eficiencia")) {
+        eficiencia -= 5;
+    } else if (evento.includes("eficiencia reducida en 10%")) {
+        eficiencia -= 10;
+    } else if (evento.includes("presupuesto aumentado en 20")) {
+        presupuesto += 20;
+    }
+}
+
+function actualizarEstadoJuego() {
+    document.getElementById('estado-juego').innerText = `Puntuación: ${puntuacion} | Eficiencia: ${eficiencia}% | Presupuesto: $${presupuesto}`;
+
+    if (eficiencia <= 0) {
+        alert('¡La planta se ha vuelto ineficiente y ha fallado! Intenta de nuevo.');
+        reiniciarJuego();
+    } else if (presupuesto <= 0) {
+        alert('¡Te has quedado sin presupuesto! Intenta de nuevo.');
+        reiniciarJuego();
+    }
+}
+
+function reiniciarJuego() {
+    puntuacion = 0;
+    eficiencia = 50;
+    presupuesto = 100;
+    generarTablero();
+    actualizarEstadoJuego();
+}
 
 // Inicializar el juego al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
     generarTablero();
     actualizarEstadoJuego();
 });
-}

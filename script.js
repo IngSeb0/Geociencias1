@@ -306,10 +306,26 @@ function mostrarEventoAleatorio() {
     } else if (evento.includes("presupuesto aumentado en 20")) {
         presupuesto += 20;
     }
-}
-
-function actualizarEstadoJuego() {
+}function actualizarEstadoJuego() {
     document.getElementById('estado-juego').innerText = `Puntuación: ${puntuacion} | Eficiencia: ${eficiencia}% | Presupuesto: $${presupuesto}`;
+
+    // Actualizar la representación visual de la planta
+    const representacionPlanta = document.getElementById('representacion-planta');
+    const estadoTexto = document.getElementById('estado-texto');
+
+    if (eficiencia >= 80) {
+        representacionPlanta.style.backgroundColor = 'green';
+        estadoTexto.innerText = 'Estado de la planta: Óptima';
+    } else if (eficiencia >= 50) {
+        representacionPlanta.style.backgroundColor = 'yellow';
+        estadoTexto.innerText = 'Estado de la planta: Buena';
+    } else if (eficiencia > 0) {
+        representacionPlanta.style.backgroundColor = 'orange';
+        estadoTexto.innerText = 'Estado de la planta: Deficiente';
+    } else {
+        representacionPlanta.style.backgroundColor = 'red';
+        estadoTexto.innerText = 'Estado de la planta: Fuera de servicio';
+    }
 
     if (eficiencia <= 0) {
         alert('¡La planta se ha vuelto ineficiente y ha fallado! Intenta de nuevo.');
@@ -319,6 +335,7 @@ function actualizarEstadoJuego() {
         reiniciarJuego();
     }
 }
+
 
 function reiniciarJuego() {
     puntuacion = 0;

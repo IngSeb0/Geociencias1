@@ -119,10 +119,7 @@ function cargarInfografiaComparativa() {
     });
 }
 
-// Variables para el juego interactivo
-let puntuacion = 0;
-let eficiencia = 50;
-let presupuesto = 100;
+
 
 // Función para mostrar detalles de los procesos
 function mostrarDetalleProceso(etapa) {
@@ -199,6 +196,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
+// Variables para el juego interactivo
+let puntuacion = 0;
+let eficiencia = 50;
+let presupuesto = 100;
+const filas = 5; // Número de filas en el tablero
+const columnas = 5; // Número de columnas en el tablero
+
+// Función para generar el tablero de juego
+function generarTablero() {
+    const tablero = document.getElementById('tablero-juego');
+    tablero.innerHTML = ''; // Limpiar tablero existente
+    for (let i = 0; i < filas; i++) {
+        const fila = document.createElement('div');
+        fila.classList.add('fila');
+        for (let j = 0; j < columnas; j++) {
+            const celda = document.createElement('div');
+            celda.classList.add('celda');
+            celda.innerText = '?';
+            celda.onclick = () => explorarCelda(celda, i * columnas + j);
+            fila.appendChild(celda);
+        }
+        tablero.appendChild(fila);
+    }
+}
+
 // Función del juego interactivo
 function explorarCelda(celda, index) {
     if (!celda.classList.contains('activa')) {
@@ -228,6 +252,7 @@ function explorarCelda(celda, index) {
     }
 }
 
+// Funciones adicionales para el juego (desafíos y eventos aleatorios)
 function mostrarDesafioEducativo() {
     const preguntas = [
         {
@@ -299,11 +324,12 @@ function reiniciarJuego() {
     puntuacion = 0;
     eficiencia = 50;
     presupuesto = 100;
-    document.querySelectorAll('.celda').forEach(celda => {
-        celda.classList.remove('activa');
-        celda.innerText = '?';
-        celda.style.backgroundColor = '#f1f1f1';
-    });
+    generarTablero();
     actualizarEstadoJuego();
 }
 
+// Inicializar el juego al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    generarTablero();
+    actualizarEstadoJuego();
+});

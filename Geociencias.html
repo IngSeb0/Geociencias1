@@ -522,65 +522,125 @@
             
         ];
         
-            // Añadir marcadores al mapa con información
-            geotermiaData.forEach(data => {
-                const marker = L.marker(data.coordenadas).addTo(map);
-                const popupContent = `
-                    <div style="text-align: center;">
-                        <strong>${data.pais}</strong><br>
-                        <em>${data.capital}</em><br>
-                        <p>Capacidad instalada: ${data.capacidad}<br>
-                        Proyectos activos: ${data.proyectos}</p>
-                    </div>
-                `;
-                marker.bindPopup(popupContent);
-            });
+
+geotermiaData.forEach(data => {
+    const marker = L.marker(data.coordenadas).addTo(map);
+    const popupContent = `
+        <div style="text-align: center;">
+            <h4>${data.nombre}</h4>
+            <p>
+                <strong>País:</strong> ${data.pais}<br>
+                <strong>Capacidad:</strong> ${data.capacidad}<br>
+                <strong>Tecnología:</strong> ${data.tecnologia}<br>
+                <strong>Estado:</strong> ${data.estado}<br>
+                <strong>Año de Inicio:</strong> ${data.año_inicio ? data.año_inicio : 'No disponible'}<br>
+                <strong>Propietario:</strong> ${data.propietario}<br>
+                <strong>Operador:</strong> ${data.operador ? data.operador : 'No especificado'}
+            </p>
+        </div>
+    `;
+    marker.bindPopup(popupContent);
+});
         </script>
     
-        <!-- Infografía del Proceso Geotérmico -->
-        <div class="infografia" id="infografia-proceso">
-            <h3>El Proceso de Extracción Geotérmica</h3>
-            <p>Haz clic en los íconos para ver los detalles de cada etapa del proceso:</p>
-            <div id="proceso-detalles">
-                <button onclick="mostrarDetalleProceso('perforacion')">Perforación</button>
-                <button onclick="mostrarDetalleProceso('extraccion')">Extracción de Calor</button>
-                <button onclick="mostrarDetalleProceso('conversion')">Conversión de Energía</button>
-            </div>
-            <div id="detalle-perforacion" class="detalle" style="display: none;">
-                <h4>Perforación</h4>
-                <p>La perforación permite acceder a las capas profundas de la Tierra donde se encuentra el calor geotérmico.</p>
-            </div>
-            <div id="detalle-extraccion" class="detalle" style="display: none;">
-                <h4>Extracción de Calor</h4>
-                <p>El calor es extraído y transportado a través de fluidos para generar energía en la superficie.</p>
-            </div>
-            <div id="detalle-conversion" class="detalle" style="display: none;">
-                <h4>Conversión de Energía</h4>
-                <p>El calor extraído se convierte en electricidad mediante una planta geotérmica.</p>
-            </div>
+    <div class="infografia" id="infografia-proceso">
+        <h3>El Proceso de Extracción Geotérmica</h3>
+        <p>Haz clic en los íconos para ver los detalles de cada etapa del proceso:</p>
+        <div id="proceso-detalles">
+            <button onclick="mostrarDetalleProceso('perforacion')">Perforación</button>
+            <button onclick="mostrarDetalleProceso('extraccion')">Extracción de Calor</button>
+            <button onclick="mostrarDetalleProceso('conversion')">Conversión de Energía</button>
+            <button onclick="mostrarDetalleProceso('almacenamiento')">Almacenamiento de Energía</button>
+            <button onclick="mostrarDetalleProceso('distribucion')">Distribución y Consumo</button>
         </div>
     
-        <!-- Infografía Comparativa -->
-        <div class="infografia" id="infografia-comparativa">
-            <h3>Comparativa de Energías Renovables</h3>
-            <canvas id="graficoComparativoGeotermico"></canvas>
-            <p>Pasa el cursor sobre los segmentos para ver los detalles de la eficiencia de la energía geotérmica en comparación con la solar, eólica e hidroeléctrica.</p>
+        <div id="detalle-perforacion" class="detalle" style="display: none;">
+            <h4>Perforación</h4>
+            <p>La perforación es el primer paso en el desarrollo de una planta geotérmica. Se utilizan equipos especializados para perforar pozos profundos en la corteza terrestre, donde las temperaturas son suficientemente altas para generar energía. Este proceso puede alcanzar profundidades de entre 1 y 4 kilómetros, dependiendo de la geología del área.</p>
+            <ul>
+                <li><strong>Herramientas utilizadas:</strong> brocas rotativas y equipos de perforación direccional.</li>
+                <li><strong>Consideraciones ambientales:</strong> Minimizar el impacto en el ecosistema local y gestionar adecuadamente los fluidos de perforación.</li>
+            </ul>
         </div>
-    </section>
     
-
+        <div id="detalle-extraccion" class="detalle" style="display: none;">
+            <h4>Extracción de Calor</h4>
+            <p>Una vez perforados los pozos, se introducen tubos para extraer el calor en forma de agua caliente o vapor. El fluido geotérmico se transporta desde el depósito subterráneo a la superficie a través de un sistema sellado que evita la contaminación.</p>
+            <ul>
+                <li><strong>Tipos de extracción:</strong> vapor seco, vapor flash y ciclo binario.</li>
+                <li><strong>Impacto geológico:</strong> Supervisar la presión subterránea para evitar hundimientos o efectos adversos en el terreno.</li>
+            </ul>
+        </div>
+    
+        <div id="detalle-conversion" class="detalle" style="display: none;">
+            <h4>Conversión de Energía</h4>
+            <p>El calor extraído se utiliza para generar electricidad en una planta geotérmica. Dependiendo del tipo de sistema, el vapor o el fluido caliente impulsa una turbina que convierte la energía térmica en energía mecánica y luego en electricidad mediante un generador.</p>
+            <ul>
+                <li><strong>Tipos de plantas:</strong>
+                    <ul>
+                        <li><strong>Vapor seco:</strong> Utiliza vapor directamente desde el reservorio.</li>
+                        <li><strong>Vapor flash:</strong> El agua caliente se despresuriza para producir vapor.</li>
+                        <li><strong>Ciclo binario:</strong> Usa un fluido secundario con un punto de ebullición más bajo.</li>
+                    </ul>
+                </li>
+                <li><strong>Eficiencia:</strong> Estas plantas pueden alcanzar eficiencias de entre el 10% y el 17% debido a las temperaturas moderadas de los depósitos.</li>
+            </ul>
+        </div>
+    
+        <div id="detalle-almacenamiento" class="detalle" style="display: none;">
+            <h4>Almacenamiento de Energía</h4>
+            <p>La energía generada puede almacenarse temporalmente para garantizar un suministro constante, incluso cuando la demanda fluctúa. Los métodos de almacenamiento incluyen baterías de alta capacidad y almacenamiento térmico en depósitos aislados.</p>
+            <ul>
+                <li><strong>Ventajas:</strong> Reduce la dependencia de las condiciones geológicas en tiempo real.</li>
+                <li><strong>Innovaciones:</strong> Uso de sales fundidas para almacenar calor excedente.</li>
+            </ul>
+        </div>
+    
+        <div id="detalle-distribucion" class="detalle" style="display: none;">
+            <h4>Distribución y Consumo</h4>
+            <p>La electricidad generada se envía a la red eléctrica para su distribución a hogares, industrias y otras aplicaciones. En algunos casos, el calor residual también puede utilizarse para calefacción directa en áreas cercanas a la planta.</p>
+            <ul>
+                <li><strong>Red de distribución:</strong> Infraestructura para transportar energía a largas distancias.</li>
+                <li><strong>Aplicaciones directas:</strong> Calefacción, agricultura, y procesos industriales.</li>
+            </ul>
+        </div>
+    </div>
+    
     <section id="calculadora">
         <h2>Calculadora de Ahorro Energético</h2>
+        <p>
+            Esta calculadora estima el ahorro energético y monetario utilizando sistemas geotérmicos. 
+            Ajusta los parámetros para calcular el impacto en tus costos y consumo de energía.
+        </p>
         <form id="calculadora-form">
-            <label for="consumo-actual">Consumo Actual (kWh):</label>
-            <input type="number" id="consumo-actual" required>
+            <label for="consumo-actual">Consumo Actual (kWh/mes):</label>
+            <input type="number" id="consumo-actual" required min="1" step="1" placeholder="Ej: 500">
+            
+            <label for="eficiencia-sistema">Eficiencia del Sistema Geotérmico (%):</label>
+            <input type="number" id="eficiencia-sistema" required min="1" max="100" step="1" placeholder="Ej: 80">
+            
+            <label for="costo-kwh">Costo por kWh ($):</label>
+            <input type="number" id="costo-kwh" required min="0.01" step="0.01" placeholder="Ej: 0.12">
+            
+            <label for="meses">Duración en Meses:</label>
+            <input type="number" id="meses" required min="1" step="1" value="12">
+            
             <button type="button" onclick="calcularAhorro()">Calcular Ahorro</button>
         </form>
+        
         <p id="resultado-calculadora"></p>
-        <canvas id="graficoAhorro"></canvas>
+        <div id="informacion-adicional" style="display: none;">
+            <h3>Detalles del Ahorro</h3>
+            <ul>
+                <li><strong>Ahorro Energético Mensual:</strong> <span id="ahorro-energetico"></span> kWh</li>
+                <li><strong>Ahorro Económico Mensual:</strong> <span id="ahorro-economico"></span> $</li>
+                <li><strong>Ahorro Total en el Período:</strong> <span id="ahorro-total"></span> $</li>
+            </ul>
+        </div>
+        <canvas id="graficoAhorro" style="max-width: 100%; height: 400px;"></canvas>
     </section>
-
-   
+    
+    
     <section id="juego">
         <h2>El Desafío de la Planta Geotérmica</h2>
         <p>Gestiona tu planta geotérmica para maximizar la eficiencia y superar los desafíos educativos. Haz clic en las celdas para explorar y mejorar tu planta, pero ten cuidado con los eventos inesperados.</p>
@@ -617,7 +677,8 @@
         </article>
     </section>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <div id="progreso"></div>
     
